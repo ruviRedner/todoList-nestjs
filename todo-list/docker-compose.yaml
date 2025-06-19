@@ -1,0 +1,41 @@
+
+
+services:
+  nestjs:
+    build: .                      # בונה את NestJS מה-Dockerfile בתיקייה הנוכחית
+    ports:
+      - "3000:3000"               # NestJS זמין בפורט 3000
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - PORT=${PORT}
+    restart: unless-stopped
+
+  mongo:
+    image: mongo:6
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml  # קובץ הקונפיג שלך
+    ports:
+      - "9090:9090"
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3001:3000"             # Grafana זמינה על פורט 3001 אצלך
+    volumes:
+      - grafana-data:/var/lib/grafana  # שמירה על דאטה בין ריצות
+    restart: unless-stopped
+
+volumes:
+  mongo-data:
+  grafana-data:

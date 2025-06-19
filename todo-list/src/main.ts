@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { writeFileSync } from 'fs';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -19,7 +20,14 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   writeFileSync('./swagger.json', JSON.stringify(document, null, 2));
+  
+   const configEnvs = app.get(ConfigService);
+   const port = configEnvs.get<number>('PORT');
+   console.log(port);
+   
 
-  await app.listen(3000);
+  await app.listen(port);
+
+  console.log(`Application is running on: http://localhost:${port}`);
 }
 bootstrap();
