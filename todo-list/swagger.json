@@ -1,0 +1,98 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/todos": {
+      "post": {
+        "operationId": "TodoController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTodoDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        }
+      },
+      "get": {
+        "operationId": "TodoController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/todos/{id}": {
+      "get": {
+        "operationId": "TodoController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "operationId": "TodoController_delete",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "info": {
+    "title": "Todo API",
+    "description": "The Todo API documentation",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "CreateTodoDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Buy milk",
+            "description": "The title of the task"
+          }
+        },
+        "required": [
+          "title"
+        ]
+      }
+    }
+  }
+}
