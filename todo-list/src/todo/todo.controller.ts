@@ -5,7 +5,6 @@ import {
   Delete,
   Body,
   Param,
-  UseInterceptors,
 } from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { Todo } from '../schemas/todoScema';
