@@ -4,9 +4,9 @@ import {
   Injectable,
   NestInterceptor,
 } from '@nestjs/common';
-import { Observable, tap } from 'rxjs';
-import { Counter } from 'prom-client';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
+import { Counter } from 'prom-client';
+import { Observable, tap } from 'rxjs';
 
 @Injectable()
 export class HttpMetricsInterceptor implements NestInterceptor {
@@ -22,8 +22,12 @@ export class HttpMetricsInterceptor implements NestInterceptor {
     return next.handle().pipe(
       tap(() => {
         const method = req.method;
-        const route = req.route?.path || req.url;
-        const status = res.statusCode;
+        const route =
+          (req.route && req.route.path) ||
+          req.originalUrl ||
+          req.url ||
+          'unknown';
+        const status = res.statusCode.toString();
 
         this.httpRequestCounter.inc({
           method,

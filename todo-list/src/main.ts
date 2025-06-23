@@ -10,7 +10,7 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
 
-   const config = new DocumentBuilder()
+  const config = new DocumentBuilder()
     .setTitle('Todo API')
     .setDescription('The Todo API documentation')
     .setVersion('1.0')
@@ -20,11 +20,10 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   writeFileSync('./swagger.json', JSON.stringify(document, null, 2));
-  
-   const configEnvs = app.get(ConfigService);
-   const port = configEnvs.get<number>('PORT');
-   console.log(port);
-   
+
+  const configEnvs = app.get(ConfigService);
+  const port = configEnvs.get<number>('PORT');
+  console.log(port);
 
   await app.listen(port);
 

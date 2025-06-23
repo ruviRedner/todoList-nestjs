@@ -8,7 +8,7 @@ import { CreateTodoDto } from './dto/createNewTodoDto';
 export class TodoService {
   constructor(@InjectModel(Todo.name) private todoModel: Model<TodoDocument>) {}
 
-  async create(newTodo:CreateTodoDto): Promise<Todo> {
+  async create(newTodo: CreateTodoDto): Promise<Todo> {
     const todoNew = new this.todoModel(newTodo);
     return todoNew.save();
   }
@@ -18,10 +18,9 @@ export class TodoService {
   }
 
   async findOne(id: string): Promise<Todo> {
-
-     if (!mongoose.Types.ObjectId.isValid(id)) {
-        throw new NotFoundException(`Invalid ID format`);
-  }
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new NotFoundException(`Invalid ID format`);
+    }
     const todo = await this.todoModel.findById(id).exec();
     if (!todo) {
       throw new NotFoundException(`Todo with id ${id} not found`);
