@@ -10,10 +10,8 @@ import {
 import { TodoService } from './todo.service';
 import { Todo } from '../schemas/todoScema';
 import { CreateTodoDto } from './dto/createNewTodoDto';
-import { TodoCounterInterceptor } from './customMetrics/todo-counter.interceptor';
 
 @Controller('todos')
-@UseInterceptors(TodoCounterInterceptor)
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 

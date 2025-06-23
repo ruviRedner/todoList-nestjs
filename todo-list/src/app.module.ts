@@ -8,7 +8,6 @@ import {
 } from '@willsoto/nestjs-prometheus';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { HttpMetricsInterceptor } from './todo/customMetrics/httpMetrics.interceptor';
-import { TodoCounterInterceptor } from './todo/customMetrics/todo-counter.interceptor';
 
 @Module({
   imports: [
@@ -16,7 +15,6 @@ import { TodoCounterInterceptor } from './todo/customMetrics/todo-counter.interc
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRoot(process.env.MONGO_URI),
     TodoModule,
-    TodoCounterInterceptor,
   ],
   providers: [
     makeCounterProvider({
