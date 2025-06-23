@@ -1,11 +1,4 @@
-import {
-  Controller,
-  Post,
-  Get,
-  Delete,
-  Body,
-  Param,
-} from '@nestjs/common';
+import { Controller, Post, Get, Delete, Body, Param } from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { Todo } from '../schemas/todoScema';
 import { CreateTodoDto } from './dto/createNewTodoDto';

@@ -11,14 +11,16 @@ import { Observable, tap } from 'rxjs';
 @Injectable()
 export class TodoCounterInterceptor implements NestInterceptor {
   constructor(
-    @InjectMetric('todos-created-total')
+    @InjectMetric('todos_created_total')
     private readonly counter: Counter,
   ) {}
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const request = context.switchToHttp().getRequest();
 
     const isCreateTodoRequest =
-      request.method === 'POST' && request.route?.path?.includes('/todos');
+      request.method === 'POST' && request.route?.path?.includes('todos');
+    console.log(isCreateTodoRequest);
+
     return next.handle().pipe(
       tap(() => {
         if (isCreateTodoRequest) this.counter.inc();

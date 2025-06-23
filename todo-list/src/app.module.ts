@@ -8,6 +8,8 @@ import {
 } from '@willsoto/nestjs-prometheus';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { HttpMetricsInterceptor } from './todo/customMetrics/httpMetrics.interceptor';
+import { TodoCounterInterceptor } from './todo/customMetrics/todo-counter.interceptor';
+import { globalInterceptors } from './interceptors/globalInterceptors';
 
 @Module({
   imports: [
@@ -17,6 +19,7 @@ import { HttpMetricsInterceptor } from './todo/customMetrics/httpMetrics.interce
     TodoModule,
   ],
   providers: [
+    ...globalInterceptors,
     makeCounterProvider({
       name: 'http_requests_total',
       help: 'Total number of HTTP requests',
@@ -26,10 +29,6 @@ import { HttpMetricsInterceptor } from './todo/customMetrics/httpMetrics.interce
       name: 'todos_created_total',
       help: 'Total number of todos created',
     }),
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: HttpMetricsInterceptor,
-    },
   ],
 })
 export class AppModule {}

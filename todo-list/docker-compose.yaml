@@ -1,5 +1,3 @@
-
-
 services:
   nestjs:
     build: .                      # בונה את NestJS מה-Dockerfile בתיקייה הנוכחית
@@ -31,9 +29,9 @@ services:
   grafana:
     image: grafana/grafana:latest
     ports:
-      - "3001:3000"             # Grafana זמינה על פורט 3001 אצלך
+      - "3001:3000"             
     volumes:
-      - grafana-data:/var/lib/grafana  # שמירה על דאטה בין ריצות
+      - ./grafana-data:/var/lib/grafana 
     restart: unless-stopped
 
 volumes:
